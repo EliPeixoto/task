@@ -1,13 +1,13 @@
 package com.elipeixoto.taks.controller;
 
+import com.elipeixoto.taks.dto.UserDto;
 import com.elipeixoto.taks.entities.User;
+import com.elipeixoto.taks.mapper.UserMapper;
 import com.elipeixoto.taks.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,10 +19,15 @@ public class UserController {
     private final UserService service;
 
     @GetMapping
-    public ResponseEntity<List<User>> listaUsuarios(){
-        List<User> usuarios = service.listaUsuario();
+    public ResponseEntity<List<UserDto>> listaUsuarios() {
+        return ResponseEntity.ok(service.listaUsuario());
+    }
 
-        return ResponseEntity.status(HttpStatus.OK).body(usuarios);
+    @PostMapping("/salvar")
+    public ResponseEntity<UserDto> salvarUsuario(@RequestBody UserDto userDto) {
+        service.salvarUsuario(userDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
+
     }
 
 }
