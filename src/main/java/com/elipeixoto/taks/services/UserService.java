@@ -43,4 +43,9 @@ public class UserService {
         UserDto userDto = mapper.toDto(user);
         return userDto;
     }
+
+    public Void deletaUsuario(Long id){
+        repository.deleteById(id);
+        return null;
+    }
 }
