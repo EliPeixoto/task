@@ -30,4 +30,10 @@ public class UserController {
 
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto>listaUsuarioPorId(@PathVariable  Long id){
+        UserDto userDto = service.listaPorId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(userDto);
+    }
+
 }

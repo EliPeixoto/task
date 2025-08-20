@@ -37,4 +37,10 @@ public class UserService {
         User usuarioSalvo = repository.save(user);
         return mapper.toDto(usuarioSalvo);
     }
+
+    public UserDto listaPorId(Long id) {
+        User user = repository.findById(id).orElseThrow();
+        UserDto userDto = mapper.toDto(user);
+        return userDto;
+    }
 }
