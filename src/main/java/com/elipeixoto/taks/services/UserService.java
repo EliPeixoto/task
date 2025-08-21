@@ -20,6 +20,7 @@ public class UserService {
 
     public List<UserDto> listaUsuario() {
         List<User> usuariosSalvos = repository.findAll();
+
         return mapper.toDtoList(usuariosSalvos);
     }
 

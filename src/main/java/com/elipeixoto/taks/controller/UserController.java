@@ -4,6 +4,7 @@ import com.elipeixoto.taks.dto.UserDto;
 import com.elipeixoto.taks.entities.User;
 import com.elipeixoto.taks.mapper.UserMapper;
 import com.elipeixoto.taks.services.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping("/salvar")
-    public ResponseEntity<UserDto> salvarUsuario(@RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> salvarUsuario(@Valid @RequestBody UserDto userDto) {
         service.salvarUsuario(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
 

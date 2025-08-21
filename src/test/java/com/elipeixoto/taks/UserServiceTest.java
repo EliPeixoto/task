@@ -12,6 +12,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +49,9 @@ public class UserServiceTest {
         user.setTelefone("telefone");
         user.setStatus("A");
 
-
+        LocalDate date = LocalDate.of(2025, 8, 21);
+        LocalTime time = LocalTime.of(10, 30);
+        LocalDateTime combinedDateTime = LocalDateTime.of(date, time);
         userDto = new UserDto(
                 1L,
                 "Nome",
