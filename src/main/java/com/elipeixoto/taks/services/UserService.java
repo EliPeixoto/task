@@ -4,10 +4,12 @@ import com.elipeixoto.taks.dto.UserDto;
 import com.elipeixoto.taks.entities.User;
 import com.elipeixoto.taks.mapper.UserMapper;
 import com.elipeixoto.taks.repositories.UserRepository;
+import com.elipeixoto.taks.utils.TokenUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -27,16 +29,16 @@ public class UserService {
     public UserDto salvarUsuario(UserDto userDto) {
         log.info("Salvando usuario: {}", userDto);
         User user = mapper.toEntity(userDto);
-        user.setNome(userDto.nome());
-        user.setEmail(userDto.email());
-        user.setTelefone(userDto.telefone());
-        user.setStatus(userDto.status());
-        user.setCriadoPor("NOME TESTE");
-        user.setAtualizadoPor("NOME TESTE");
-        user.setCriadoEm(java.time.LocalDateTime.now());
-
+        preencherCamposPadroes(user);
         User usuarioSalvo = repository.save(user);
         return mapper.toDto(usuarioSalvo);
+    }
+
+    private void preencherCamposPadroes(User user) {
+        String username = TokenUtils.username();
+        user.setCriadoPor(username);
+        user.setAtualizadoPor(username);
+        user.setCriadoEm(LocalDateTime.now());
     }
 
     public UserDto listaPorId(Long id) {
