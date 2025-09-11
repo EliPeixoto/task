@@ -17,9 +17,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 
 
-    http.csrf(csrf -> csrf.disable());
-
-
+        http
+            .csrf(csrf -> csrf.disable())
+            .oauth2ResourceServer(oauth2 -> oauth2
+                    .jwt(jwt -> jwt.jwtAuthenticationConverter(new JWTConverter())));
         return http.build();
     }
 }
