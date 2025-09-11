@@ -16,6 +16,7 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
+
     private final UserService service;
 
     @GetMapping("/listar-todos")
