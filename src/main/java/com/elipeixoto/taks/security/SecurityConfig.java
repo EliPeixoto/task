@@ -18,9 +18,20 @@ public class SecurityConfig {
 
 
         http
-            .csrf(csrf -> csrf.disable())
-            .oauth2ResourceServer(oauth2 -> oauth2
-                    .jwt(jwt -> jwt.jwtAuthenticationConverter(new JWTConverter())));
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/token/**",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
+                        .anyRequest().authenticated()
+                )
+                .csrf(csrf -> csrf.disable())
+                .oauth2ResourceServer(oauth2 ->
+                        oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(new JWTConverter()))
+                );
+
         return http.build();
     }
 }
